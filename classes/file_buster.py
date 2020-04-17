@@ -94,7 +94,7 @@ class file_buster():
 				print(f"{path[:-1]} : {request.status_code} \n")
 				self.found_paths.append((path[:-1],request.status_code))
 				
-				if self.detection_file == "" and line[:-1] != "" :
+				if self.detection_file == "" and line[:-1] != "" and request.status_code == 200 :
 
 					self.detection_file = line[:-1]
 					print(f"[-] the detection_file is : {self.detection_file} \n")
@@ -162,7 +162,7 @@ class file_buster():
 
 					file.write(f"{line[0]} : {line[1]} \n")
 
-			print(f"[-] The script needed {timedelta(seconds= time.monotonic() - self.start_time)} to finish\n")
+			print(f"[-] The script tested {self.list_length} and needed {timedelta(seconds= time.monotonic() - self.start_time)} to finish\n")
 			print(f"[-] The results were saved in the file : {path} \n")
 		
 		except Exception as e :
