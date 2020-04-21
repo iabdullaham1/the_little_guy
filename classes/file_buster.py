@@ -97,7 +97,7 @@ class file_buster():
 		
 		try:
 			
-			path = f"{self.url}/{working_path}/{line}"
+			path = f"{self.url}:{self.port}/{working_path}/{line}"
 			request = requests.get(path[:-1], allow_redirects=True, headers={'User-Agent': self.user_agent}, proxies=self.proxies)
 			
 			if request.status_code != 404 :

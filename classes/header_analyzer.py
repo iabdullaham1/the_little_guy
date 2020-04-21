@@ -13,7 +13,7 @@ class header_analyzer():
 
 	def get_headers(self) :
 
-		request = requests.get(self.url)
+		request = requests.get(f"{self.url}:{self.port}")
 		headers = request.headers
 
 		return headers
