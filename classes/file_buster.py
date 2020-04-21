@@ -146,7 +146,7 @@ class file_buster():
 		
 			try :
 		
-				request = requests.get(f"{self.url}/{self.detection_file}", allow_redirects=True, headers={'User-Agent': self.user_agent})
+				request = requests.get(f"{self.url}:{self.port}/{self.detection_file}", allow_redirects=True, headers={'User-Agent': self.user_agent})
 			
 				if request.status_code != 200 :
 				
