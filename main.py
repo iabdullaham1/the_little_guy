@@ -1,9 +1,5 @@
-#!/usr/bin/python3
 from  classes import file_buster
 from classes import arguments_parser
-from classes import header_analyzer
-from classes import prepare
-
 img = """                                                  
                        &@@@/                      
                      @@@@@@@@&                    
@@ -40,31 +36,17 @@ if __name__ == "__main__" :
   parser = arguments_parser.arguments_parser()
   args = parser.args_parser()
 
-  prepare = prepare.prepare()
+  user_agent = "Mozilla/5.0" if args.user_agent is None else args.user_agent
+  port = 0 if args.port is None else args.port
 
-  user_agent = prepare.prepare_user_agent(args.user_agent)
-  url  = prepare.prepare_url(args.url) 
-  port = prepare.prepare_port(args.port,url)
+  print(args)
 
-  if args.header_analyzer or args.full :
+  buster = file_buster.file_buster(args.threads, args.wordlist, args.url, user_agent,port, args.verbose, args.proxy, args.recursive)
 
-    try :
-      
-      analyzer = header_analyzer.header_analyzer(url, user_agent, port, args.proxy)
-      analyzer.main()
+  try : 
 
-    except Exception as e :
-      
-      print(e)
+    buster.main()
 
-  if args.buster or args.full : 
+  except KeyboardInterrupt :
 
-    buster = file_buster.file_buster(args.threads, args.wordlist, url, user_agent,port, args.verbose, args.proxy, args.recursive)
-
-    try : 
-
-      buster.main()
-
-    except KeyboardInterrupt :
-
-      buster.save_list_to_resume()
+    buster.save_list_to_resume()
